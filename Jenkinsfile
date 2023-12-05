@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+      label "jenkins-node"
+    }
     
 	triggers {
 		pollSCM('* * * * *')
@@ -22,6 +24,15 @@ pipeline {
                 sh 'mvn clean package -DskipTests=true'
             }
         }
-
+		stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-manager', path: '', url: 'http://3.38.198.216:8080/')], contextPath: null, war: 'target/hello-world.war'
+            }
+        }
     }
 }
