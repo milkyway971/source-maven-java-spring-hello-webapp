@@ -6,7 +6,7 @@ pipeline {
 	}
 
     stages {
-        stage('hello') {
+        stage('Hello') {
             steps {
                 echo 'Hello World'
             }
@@ -19,7 +19,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn package'
+                sh 'mvn clean package'
+            }
+        }
+		stage('Test') {
+            steps {
+                sh 'mvn test'
             }
         }
         stage('Deploy') {
