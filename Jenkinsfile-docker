@@ -51,7 +51,7 @@ pipeline {
         docker { image 'docker:dind' }
       }
       steps {
-        sh 'docker -H tcp172.31.16.226:2375 container run --detach --name myhello -p 80:8080 myhello:$BUILD_NUMBER'
+        sh 'docker -H tcp://172.31.16.226:2375 container run --detach --name myhello -p 80:8080 myhello:$BUILD_NUMBER'
       }
     }
   }
